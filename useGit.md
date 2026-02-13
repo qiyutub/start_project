@@ -153,8 +153,8 @@ doc/**/*.pdf
 git branch                  # 查看本地分支（当前分支前有 *）
 git branch -r               # 查看远程分支
 git branch <branch-name>    # 创建新分支
-git checkout <branch-name>  # 切换到指定分支
-git checkout -b <branch-name> # 创建并切换到新分支
+git switch <branch-name>  # 切换到指定分支
+git switch -c <branch-name> # 创建并切换到新分支
 git branch -d <branch-name> # 删除已合并的分支
 git branch -D <branch-name> # 强制删除未合并的分支
 git tag <tag-name>          # 为当前提交打标签（用于版本发布）
@@ -211,20 +211,23 @@ gedit config # 编辑 config 文件，添加以下内容
 ```bash
 # 可以在拉取仓库界面点击code，选择ssh，复制远程仓库url
 
-# 添加远程仓库
-git remote add <remote-name> <remote-url>
+# 添加远程仓库别名为 origin
+git remote add origin <remote-url>  
 
 # 查看远程仓库
 git remote -v
 
+# 设置默认分支(github默认分支为main,gitee默认分支为master,分支名必须与远程仓库相同)
+git branch -m main/master
+
+# 拉取/推送代码
+git push -u origin main/master  # 推送本地代码到远程
+git pull origin main:master  # 将仓库别名为 origin 的远程 main 分支合并到本地 master 分支
+git pull --rebase            # 拉取并以 Rebase 方式合并
+
 # 删除/重命名远程仓库
 git remote rm <remote-name>
 git remote rename <old-name> <new-name>
-
-# 拉取/推送代码
-git pull <remote-name> <branch-name>  # 拉取并合并远程代码
-git pull --rebase                     # 拉取并以 Rebase 方式合并
-git push <remote-name> <branch-name>  # 推送本地代码到远程
 
 # 获取远程分支（不合并）
 git fetch <remote-name>
@@ -237,8 +240,8 @@ git fetch <remote-name> <branch-name>
 一种标准化的 Git 分支管理模型，适合团队协作开发：
 - **master**：主分支，存放稳定的发布版本。
 - **develop**：开发分支，整合所有功能开发。
-- **feature/* **：功能分支，从 develop 分出，开发完成后合并回 develop。
-- **release/* **：发布分支，从 develop 分出，准备版本发布，完成后合并回 master 和 develop。
-- **hotfix/* **：修补分支，从 master 分出，修复线上问题，完成后合并回 master 和 develop。
+- **feature**：功能分支，从 develop 分出，开发完成后合并回 develop。
+- **release**：发布分支，从 develop 分出，准备版本发布，完成后合并回 master 和 develop。
+- **hotfix**：修补分支，从 master 分出，修复线上问题，完成后合并回 master 和 develop。
 
 ---
