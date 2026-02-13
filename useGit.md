@@ -116,6 +116,7 @@ git reset --hard <commit-hash>  # 回退到指定提交
 ### 3. 其他撤销操作
 ```bash
 git checkout <file>          # 恢复文件到上一次提交（覆盖工作区）
+git checkout -b <branch-name> <commit-hash> # 基于指定提交恢复并切换到新分支
 git restore --staged <file>  # 撤销暂存（git add 的反向操作）
 ```
 
@@ -163,12 +164,31 @@ git tag <tag-name>          # 为当前提交打标签（用于版本发布）
 ### 2. 分支合并与 Rebase
 ```bash
 git merge <branch-name>                       # 合并分支到当前分支
+git merge --abort                             # 取消合并操作
 git merge --no-ff -m "message" <branch-name>  # 强制创建合并提交，保留分支历史
 git merge --squash <branch-name>              # 将分支所有提交压缩为一个提交后合并
+
+# 查看分支冲突
+git diff  # 查看所有冲突文件
+
+# 冲突解决
+# 编辑冲突文件，删除或修改冲突部分
+git add <file>  # 标记冲突已解决
+git commit -m "resolve merge conflict"  # 提交解决冲突后的变更
+
+# 命令行查看git分支合并图
+git log --graph --oneline --decorate --all
+# 给以上命令添加别名
+alias gitgraph="git log --graph --oneline --decorate --all"
+# 查看分支合并图
+gitgraph
 
 # Rebase（使提交历史更线性，多人协作时避免对已推送的分支使用）
 git rebase <branch-name>
 ```
+
+### 3. rebase直观理解
+![rebase_graph](rebase_graph.png)
 
 ---
 
