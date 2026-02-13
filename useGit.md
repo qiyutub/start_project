@@ -162,8 +162,7 @@ git tag <tag-name>          # 为当前提交打标签（用于版本发布）
 
 ### 2. 分支合并与 Rebase
 ```bash
-# 合并分支到当前分支
-git merge <branch-name>
+git merge <branch-name>                       # 合并分支到当前分支
 git merge --no-ff -m "message" <branch-name>  # 强制创建合并提交，保留分支历史
 git merge --squash <branch-name>              # 将分支所有提交压缩为一个提交后合并
 
