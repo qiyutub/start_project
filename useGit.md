@@ -125,6 +125,12 @@ git restore --staged <file>  # 撤销暂存（git add 的反向操作）
 ## 七、.gitignore 忽略文件
 通过 `.gitignore` 文件指定 Git 忽略的文件/目录，避免将无关文件（如日志、缓存、编译产物）提交到仓库。
 
+!!! 注意：`.gitignore` 文件并**不能**忽略已经被 Git 跟踪的文件，若要忽略已跟踪文件，需要先从 Git 中删除它们
+```bash
+git rm -r --cached . # 从暂存区删除所有文件
+git add . # 重新添加所有文件到暂存区， .gitignore 会自动忽略指定文件
+```
+
 ### 常用规则示例
 ```bash
 # 忽略所有 .a 文件
@@ -233,6 +239,8 @@ gedit config # 编辑 config 文件，添加以下内容
 
 # 添加远程仓库别名为 origin
 git remote add origin <remote-url>  
+# 删除远程仓库别名 origin
+git remote rm origin
 
 # 查看远程仓库
 git remote -v
@@ -241,7 +249,8 @@ git remote -v
 git branch -m main/master
 
 # 拉取/推送代码
-git push -u origin main/master  # 推送本地代码到远程
+git push -u origin main  # 将本地 main 分支推送到远程 main 分支
+git push -u origin main:master  # 将本地 main 分支推送到远程 master 分支
 git pull origin main:master  # 将仓库别名为 origin 的远程 main 分支合并到本地 master 分支
 git pull --rebase            # 拉取并以 Rebase 方式合并
 
